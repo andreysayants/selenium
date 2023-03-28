@@ -31,10 +31,9 @@ public class Stickers {
         wait.until(ExpectedConditions.attributeToBe(By.id("box-most-popular"), "", ""));
 
         int duckCount = driver.findElements(By.cssSelector(".product")).size();
+        List<WebElement> items = driver.findElements(By.cssSelector(".product"));
         for (int i = 0; i < duckCount; i++) {
-            List<WebElement> items = driver.findElements(By.cssSelector(".product"));
-            WebElement item = items.get(i);
-            int sticker = item.findElements(By.cssSelector(".sticker")).size();
+            int sticker = items.get(i).findElements(By.cssSelector(".sticker")).size();
             assertEquals(1, sticker);
         }
     }
