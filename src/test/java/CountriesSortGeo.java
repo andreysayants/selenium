@@ -43,13 +43,36 @@ public class CountriesSortGeo {
         int countriesCount = driver.findElements(By.cssSelector(".row")).size();
         List<WebElement> countries = driver.findElements(By.cssSelector(".row"));
         ArrayList<String> countriesName = new ArrayList<>();
+        ArrayList<String> editCountriesName = new ArrayList<>();
         for (int i = 0; i < countriesCount; i++) {
             String name = countries.get(i).findElement(By.cssSelector("a")).getAttribute("textContent");
+            String countOfZones = countries.get(i).findElements(By.cssSelector("td")).get(5).getAttribute("textContent");
             countriesName.add(name);
+            if (Integer.parseInt(countOfZones) != 0)
+                editCountriesName.add(name);
         }
         ArrayList<String> sortedCountriesName = (ArrayList<String>) countriesName.clone();
         Collections.sort(sortedCountriesName);
         assertEquals(sortedCountriesName, countriesName);
+
+//        Edit Country page
+        for (int i = 0; i < editCountriesName.size(); i++) {
+            driver.findElement(By.xpath("//a[contains(text(),'"+ editCountriesName.get(i) +"')]")).click();
+            int editCountriesCount = driver.findElements(By.cssSelector("#table-zones tr")).size();
+            List<WebElement> editCountries = driver.findElements(By.cssSelector("#table-zones tr"));
+            ArrayList<String> editsCountriesName = new ArrayList<>();
+
+            for (int j = 1; j < editCountriesCount - 1; j++) {
+                String editName = editCountries.get(j).findElements(By.cssSelector("td")).get(2).getAttribute("textContent");
+                editsCountriesName.add(editName);
+            }
+            ArrayList<String> sortedEditCountriesName = (ArrayList<String>) editsCountriesName.clone();
+            Collections.sort(sortedEditCountriesName);
+            assertEquals(sortedEditCountriesName, editsCountriesName);
+            driver.navigate().back();
+        }
+
+
     }
 
     @AfterEach
