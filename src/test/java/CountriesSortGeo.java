@@ -17,14 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CountriesSortGeo {
     private WebDriver driver;
-    private WebDriverWait wait;
 
     @BeforeEach
     public void start() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
 
     @Test
@@ -34,14 +32,11 @@ public class CountriesSortGeo {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
-        wait.until(ExpectedConditions.attributeToBe(By.id("box-apps-menu-wrapper"), "", ""));
 
 //        Countries page
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//span[contains(text(),'Countries')]"), "", ""));
-
-        int countriesCount = driver.findElements(By.cssSelector(".row")).size();
         List<WebElement> countries = driver.findElements(By.cssSelector(".row"));
+        int countriesCount = countries.size();
         ArrayList<String> countriesName = new ArrayList<>();
         ArrayList<String> editCountriesName = new ArrayList<>();
         for (int i = 0; i < countriesCount; i++) {
@@ -58,8 +53,8 @@ public class CountriesSortGeo {
 //        Edit Country page
         for (int i = 0; i < editCountriesName.size(); i++) {
             driver.findElement(By.xpath("//a[contains(text(),'"+ editCountriesName.get(i) +"')]")).click();
-            int editCountriesCount = driver.findElements(By.cssSelector("#table-zones tr")).size();
             List<WebElement> editCountries = driver.findElements(By.cssSelector("#table-zones tr"));
+            int editCountriesCount = editCountries.size();
             ArrayList<String> editsCountriesName = new ArrayList<>();
 
             for (int j = 1; j < editCountriesCount - 1; j++) {

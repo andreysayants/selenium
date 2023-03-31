@@ -17,14 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortGeoZones {
     private WebDriver driver;
-    private WebDriverWait wait;
 
     @BeforeEach
     public void start() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
 
     @Test
@@ -34,22 +32,18 @@ public class SortGeoZones {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
-        wait.until(ExpectedConditions.attributeToBe(By.id("box-apps-menu-wrapper"), "", ""));
 
 //        Geo Zones page
         driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//span[contains(text(),'Geo Zones')]"), "", ""));
 
 //        Edit Geo Zone page
-        int countriesCount = driver.findElements(By.cssSelector(".row")).size();
 
+        int countriesCount = driver.findElements(By.cssSelector(".row")).size();
         for (int i = 0; i < countriesCount; i++) {
             List<WebElement> countries = driver.findElements(By.cssSelector(".row"));
             countries.get(i).findElement(By.cssSelector("a")).click();
-            wait.until(ExpectedConditions.attributeToBe(By.xpath("//h2[contains(text(),'Zones')]"), "", ""));
-
-            int dropdownCount = driver.findElements(By.cssSelector("[name *= zone_code]")).size();
             List<WebElement> dropdowns = driver.findElements(By.cssSelector("[name *= zone_code]"));
+            int dropdownCount = dropdowns.size();
             ArrayList<String> dropdownNames = new ArrayList<>();
 
             for (int k = 0; k < dropdownCount; k++) {
