@@ -99,7 +99,6 @@ public class AddProduct {
         driver.findElement(By.cssSelector("button[name='save']")).click();
 
 //        Проверка товара (проверяю список на случай совпадения имен)
-        driver.findElement(By.xpath("//span[contains(text(),'Catalog')]")).click();
         boolean empty = driver.findElements(By.xpath("//a[contains(text(),'" + name + "')]")).isEmpty();
         assertFalse(empty);
     }
