@@ -3,8 +3,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
@@ -14,7 +15,9 @@ public class Signup {
     @BeforeEach
     public void start() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
-        driver = new ChromeDriver();
+//        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
+//        driver = new EdgeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
     }
@@ -35,12 +38,12 @@ public class Signup {
         driver.findElement(By.cssSelector("input[name='postcode']")).sendKeys("12345");
         driver.findElement(By.cssSelector("input[name='city']")).sendKeys(faker.address().cityName());
         driver.findElement(By.cssSelector(".select2")).click();
-        driver.findElement(By.cssSelector("[value='US']")).click();
+        driver.findElement(By.cssSelector("input.select2-search__field")).sendKeys("United States");
+        driver.findElement(By.cssSelector("input.select2-search__field")).sendKeys(Keys.ENTER);
         driver.findElement(By.cssSelector("input[name='email']")).sendKeys(email);
         driver.findElement(By.cssSelector("input[name='phone']")).sendKeys("89531111111");
         driver.findElement(By.cssSelector("input[name='password']")).sendKeys(password);
         driver.findElement(By.cssSelector("input[name='confirmed_password']")).sendKeys(password);
-        driver.findElement(By.cssSelector(".select2")).click();
         driver.findElement(By.cssSelector("button[name='create_account']")).click();
 
 //        Logout
