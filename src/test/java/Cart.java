@@ -34,7 +34,7 @@ public class Cart {
     }
 
     @Test
-    public void addProductTest() {
+    public void cartTest() {
         driver.get("http://localhost/litecart/en/");
 
 //       Add Product
