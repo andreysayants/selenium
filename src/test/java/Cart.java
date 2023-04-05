@@ -25,10 +25,10 @@ public class Cart {
     @BeforeEach
     public void start() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
-//        driver = new ChromeDriver();
+        driver = new ChromeDriver();
 //        driver = new EdgeDriver();
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+//        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
     }
@@ -49,11 +49,11 @@ public class Cart {
         }
 //        Remove Product
         driver.findElement(By.cssSelector("div#cart a.link")).click();
-        wait.until(ExpectedConditions.titleContains("Checkout | My Store"));
+        driver.findElement(By.cssSelector("td.item")); //проверяю, что в списке появились товары
 
         for (int i = 2; i > 0; i--) {
-            driver.findElement(By.cssSelector("button[name='remove_cart_item']")).click();
-            wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("td.item"), i));
+            driver.findElement(By.cssSelector("button[name='remove_cart_item']")).click(); //удаляю
+            wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("td.item"), i)); //проверяют, что список с товарами обновился
         }
 
 
