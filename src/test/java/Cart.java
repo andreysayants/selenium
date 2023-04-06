@@ -28,7 +28,6 @@ public class Cart {
         driver = new ChromeDriver();
 //        driver = new EdgeDriver();
 //        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
     }
@@ -50,10 +49,11 @@ public class Cart {
 //        Remove Product
         driver.findElement(By.cssSelector("div#cart a.link")).click();
         driver.findElement(By.cssSelector("td.item")); //проверяю, что в списке появились товары
+        int countOfProducts = driver.findElements(By.cssSelector("td.item")).size();
 
-        for (int i = 2; i > 0; i--) {
+        for (int i = countOfProducts; i > 0; i--) {
             driver.findElement(By.cssSelector("button[name='remove_cart_item']")).click(); //удаляю
-            wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("td.item"), i)); //проверяют, что список с товарами обновился
+            wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("td.item"), i - 1)); //проверяют, что список с товарами обновился
         }
 
 
