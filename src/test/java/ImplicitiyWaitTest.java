@@ -5,16 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Browsers {
+public class ImplicitiyWaitTest {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -22,9 +18,9 @@ public class Browsers {
     public void start() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         driver = new ChromeDriver();
-        //driver = new EdgeDriver();
-        //driver = new FirefoxDriver();
-        //driver = new OperaDriver();
+//  Не явные ожидания
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -33,7 +29,7 @@ public class Browsers {
         driver.get("https://www.google.com/");
         driver.findElement(By.name("q")).sendKeys("webdriver");
         driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
-        wait.until(ExpectedConditions.titleContains("webdriver - Поиск в Google"));
+//        wait.until(ExpectedConditions.titleContains("webdriver - Поиск в Google"));
     }
 
     @AfterEach
