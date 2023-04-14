@@ -6,18 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.logging.LoggingPreferences;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MyStoreAdminLogs {
+public class MyStoreAdminProxy {
     private WebDriver driver;
 
     @BeforeEach
@@ -31,12 +27,17 @@ public class MyStoreAdminLogs {
 //        options.setCapability("goog:loggingPrefs", prefs);
 //        driver = new ChromeDriver(options);
 
-        driver = new ChromeDriver();
+//        Proxy
+        String proxy = "127.0.0.1:8888"; //Fiddler использует по умолчанию 127.0.0.1:8888
+        ChromeOptions options = new ChromeOptions().addArguments("--proxy-server=http://" + proxy);
+        driver = new ChromeDriver(options);
+
+//        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
-    public void logsTest() {
+    public void proxyTest() {
 //        Login
         driver.get("http://localhost/litecart/admin/");
         driver.findElement(By.name("username")).sendKeys("admin");
