@@ -30,7 +30,7 @@ public class Application {
     }
 
     public void removeProducts() {
-        for (int i = cartPage.open().getCountOfProducts(); i > 0; i--) {
+        for (int i = cartPage.open().productRows.size(); i > 0; i--) {
             cartPage.removeProductFromCart(i);
         }
     }

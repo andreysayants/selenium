@@ -2,8 +2,12 @@ package pageObject.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class CartPage extends Page {
     public CartPage(WebDriver driver) {
@@ -16,10 +20,8 @@ public class CartPage extends Page {
         return this;
     }
 
-    public int getCountOfProducts() {
-        driver.findElement(By.cssSelector("td.item")); //проверяю, что в списке появились товары
-        return driver.findElements(By.cssSelector("td.item")).size();
-    }
+    @FindBy(css = "td.item")
+    public List<WebElement> productRows;
 
     public void removeProductFromCart(int row) {
         driver.findElement(By.cssSelector("button[name='remove_cart_item']")).click(); //удаляю
