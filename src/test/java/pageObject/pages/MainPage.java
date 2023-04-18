@@ -8,7 +8,6 @@ public class MainPage extends Page {
 
     public MainPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public void open() {

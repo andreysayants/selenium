@@ -9,7 +9,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.attributeContain
 public class ProductPage extends Page {
     public ProductPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public void ifSizeSelectFirst() {
